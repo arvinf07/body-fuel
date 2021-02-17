@@ -10,15 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_17_222413) do
+ActiveRecord::Schema.define(version: 2021_02_17_231025) do
 
   create_table "foods", force: :cascade do |t|
     t.string "name"
-    t.integer "calories"
-    t.integer "fat"
-    t.integer "carb"
-    t.integer "protein"
+    t.float "calories"
+    t.float "fat"
+    t.float "carb"
+    t.float "protein"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "meal_foods", force: :cascade do |t|
     t.integer "meal_id"
+    t.integer "food_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
