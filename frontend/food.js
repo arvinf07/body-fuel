@@ -1,3 +1,22 @@
 class Food{
-  constructor(name, cal, fat, carb, protein)
+  static all = []
+
+  //is this Destructuring??
+  constructor({name, cal, fat, carb, protein}){
+    this.name = name
+    this.cal = cal
+    this.fat = fat
+    this.carb = carb
+    this.protein = protein
+    Food.all.push(this)
+  }
+
+  // static all(){
+  //   return all
+  // }
+
+  rightAmount(amount){
+    
+  }
+
 }
