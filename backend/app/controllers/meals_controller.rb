@@ -1,7 +1,15 @@
 class MealsController < ApplicationController
   
   def index
-   ## meals = Meals where created at is today
+    ## meals = Meals where created_at is today
+    ## formatt return data to include meal name, food name and macros, and meal_foods amount
+  end
+
+  def create 
+    Meal.create(meal_params)
+  end
+
+  def edit
     
   end
 
