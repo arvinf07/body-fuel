@@ -49,6 +49,6 @@ function submitHandler(e){
   let newRow = document.createElement('tr')
   newRow.innerHTML = `<td>${food} - ${quantity} grams</td>`
   document.querySelector('tbody').insertBefore(newRow, this.closest('tr'))
-  document.getElementById('breakfast-btn').style.visibility = ''
+  this.previousElementSibling.style.visibility = ''
   this.remove()
 }

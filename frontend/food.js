@@ -11,10 +11,6 @@ class Food{
     Food.all.push(this)
   }
 
-  // static all(){
-  //   return all
-  // }
-
   rightAmount(amount){
     
   }
