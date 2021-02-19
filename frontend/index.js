@@ -38,9 +38,6 @@ function createDropDown(){
   })
 }
 
-//Button does not reappear after foodlogging
-
-
 function submitHandler(e){
   //Optimistic approach.
   e.preventDefault()

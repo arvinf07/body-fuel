@@ -9,20 +9,26 @@
   <title>Body Fuel</title>
 </head>
 <body>
-  <h1>Welcome to Body Fuel</h1>
-  <h2>Stop worrying about what your next meal will be, we got it covered</h2>
+  <div id='welcome'>
+    <h1>Welcome to Body Fuel</h1>
+    <h2>Stop worrying about what your next meal will be, we got it covered</h2>
+  </div>
+<!--   
+  <h3 class="progress-header">Calorie limit</h3>
+  <br> -->
+  <!-- this bar would rise with each food logged in.  -->
+  <!-- when exceeded turn red PROGRESS BAR -->
+  <div class='progress-bar'> 
+    <div class="progress-bar-value">65%</div>
+    <div class="progress-bar-fill"></div>
+  </div>
+  <br><br>
 
   <div id='food-table'>
     <table style="width:50%">
       
       <tr id='breakfast'>
         <th class='meals'>Breakfast</th>
-        <div class='food-rows'>
-          <tr>
-            <td>Bacon </td>
-          </tr> 
-        </div>
-        
         <tr>
           <td><button id='breakfast-btn' type="button">Add Food ++</button></td>
         </tr>
@@ -31,9 +37,6 @@
       <tr id='lunch'>
         <th class='meals'>Lunch</th>
         <tr>
-          <td>Bacon </td>
-        </tr>
-        <tr>
           <td><button id='lunch-btn' type="button">Add Food ++</button></td>
         </tr>
       </tr>
@@ -41,18 +44,12 @@
       <tr id='dinner'>
         <th class='meals'>Dinner</th>
         <tr>
-          <td>Bacon </td>
-        </tr>
-        <tr>
           <td><button id='dinner-btn' type="button">Add Food ++</button></td>
         </tr>
       </tr>
 
       <tr id='snacks'>
         <th class='meals'>Snacks</th>
-        <tr>
-          <td>Bacon </td>
-        </tr>
         <tr>
           <td><button id='snacks-btn' type="button">Add Food ++</button></td>
         </tr>
