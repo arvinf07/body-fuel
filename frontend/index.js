@@ -7,6 +7,7 @@ function getFoods(){
   fetch('http://127.0.0.1:3000/foods')
   .then(resp => resp.json())
   .then( json => makeFood(json) )
+  .catch(error => console.log('this went wrong', error))
 }
 
 function makeFood(json){
@@ -48,7 +49,7 @@ function submitHandler(e){
   let newRow = document.createElement('tr')
   let mealName = this.parentElement.parentElement.previousSibling.id
   //Ajax 
-  createMeal(food, quantity, mealName)
+  postMeal(food, quantity, mealName)
 
   newRow.innerHTML = `<td>${foodName} - ${quantity} grams</td>`
   document.querySelector('tbody').insertBefore(newRow, this.closest('tr'))
@@ -56,13 +57,24 @@ function submitHandler(e){
   this.remove()
 }
 
-function createMeal(foodId, foodAmount, mealName){
+function postMeal(foodId, foodAmount, mealName){
   const body = {meal: {name: mealName, meal_foods_attributes: {food_id: foodId, amount: foodAmount}}}
-  const configObj = {
-    
-  }
+  const configObject = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(body)
+  }; 
 
-  fetch('http://127.0.0.1:3000/meals', configObj)
+  fetch('http://127.0.0.1:3000/meals', configObject)
   .then(resp => resp.json())
-  .then()
+  .then(makeMeal)
+  .catch( error => alert(error))
+}
+
+function makeMeal(json){
+  console.log(json)
+  // new Meal(json)
 }
