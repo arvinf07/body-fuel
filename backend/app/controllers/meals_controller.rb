@@ -6,6 +6,7 @@ class MealsController < ApplicationController
   end
 
   def create 
+    switch_to_int(params)
     Meal.create(meal_params)
   end
 
@@ -17,4 +18,9 @@ class MealsController < ApplicationController
   def meal_params
     params.require(:meal).permit(:name, meal_foods_attributes: [:food_id, :amount])
   end
+
+  def switch_to_int(params)
+    byebug
+  end
+
 end
