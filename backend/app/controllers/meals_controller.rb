@@ -6,8 +6,10 @@ class MealsController < ApplicationController
   end
 
   def create 
-    switch_to_int(params)
-    Meal.create(meal_params)
+    meal = Meal.create(name: params['meal']['name'].capitalize)
+    food = MealFood.create(meal_id: meal, food_id: params['meal']['meal_foods_attributes']['food_id'].to_i, amount: params['meal']['meal_foods_attributes']['amount'].to_i )
+    meal.meal_foods << food
+    render json: meal.to_json(include: {foods: {except: [:created_at, updated_at]}})
   end
 
   def edit
@@ -15,12 +17,14 @@ class MealsController < ApplicationController
   end
 
   private
+  #no implicit conversion of string into integer
   def meal_params
     params.require(:meal).permit(:name, meal_foods_attributes: [:food_id, :amount])
   end
 
   def switch_to_int(params)
-    byebug
+    params['meal']['meal_foods_attributes']['food_id'] = params['meal']['meal_foods_attributes']['food_id'].to_i
+    params['meal']['meal_foods_attributes']['amount'] = params['meal']['meal_foods_attributes']['amount'].to_i
   end
 
 end
