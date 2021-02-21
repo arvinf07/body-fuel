@@ -2,10 +2,13 @@
 // map over and convert them food objects
 
 class Meal {
-  constructor({name, food, foodAmount}){
+  static all = []
+
+  constructor({name, food, foodAmount, id}){
     this.name = name
     this.mealFoods = [{food: food, foodAmount: foodAmount}]
-    debugger
+    this.id = id
+    Meal.all.push(this)
   }
   
   addFood(food, foodAmount){

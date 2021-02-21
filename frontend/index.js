@@ -14,7 +14,21 @@ function getMeals(){
 }
 
 function displayMeals(json){
-  meal
+  // grap the row for that meal using the name to lowercase
+  // if it has any meal_foods add a child tr for each
+  //else skip
+  json.forEach(meal => {
+    let mealRow = document.getElementById(meal.name.toLowerCase())
+    if (meal.meal_foods.length != 0){
+      meal.meal_foods.forEach(meal_food => {
+        const newFoodTr = document.createElement('tr')
+        newFoodTr.innerHTML = `
+        <td data-food-id=${meal_food.food_id}> ${Food.findByID(meal_food.food_id).name} - ${meal_food.amount} grams</td>
+        `
+        mealRow.insertAdjacentElement('afterend', newFoodTr)        
+      })
+    }
+  })
 }
 
 
@@ -58,15 +72,16 @@ function createDropDown(){
 function submitHandler(e){
   //Optimistic approach.
   e.preventDefault()
-  let food = this.querySelector('select').value
-  let foodName = this.querySelector('select').querySelector(`option[value="${food}"]`).innerText
+  let foodID = this.querySelector('select').value
+  let foodName = this.querySelector('select').querySelector(`option[value="${foodID}"]`).innerText
   let quantity = this.querySelector('input').value
   let newRow = document.createElement('tr')
   let mealName = this.parentElement.parentElement.previousSibling.id
   //Ajax 
-  postMeal(food, quantity, mealName)
+  postMeal(foodID, quantity, mealName)
 
   newRow.innerHTML = `<td>${foodName} - ${quantity} grams</td>`
+  newRow.dataset.id = foodID
   document.querySelector('tbody').insertBefore(newRow, this.closest('tr'))
   this.previousElementSibling.style.visibility = ''
   this.remove()

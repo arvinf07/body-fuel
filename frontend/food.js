@@ -12,12 +12,12 @@ class Food{
   }
 
   static findByID(id){
-    debugger
     return Food.all.find(element => element.id === id )
   }
 
   rightAmount(amount){
-    
+    // calculate the ratio given the amount
+    // return an object with all the macros and the values
   }
 
 }
