@@ -1,8 +1,23 @@
 const addButtons = document.querySelectorAll('button')
+const foodTable = document.getElementById('food-table')
 
 addButtons.forEach( e => e.addEventListener('click', renderFoodForm))
 
 getFoods()
+getMeals()
+
+function getMeals(){
+  fetch('http://127.0.0.1:3000/meals')
+  .then(resp => resp.json())
+  .then( json => displayMeals(json) )
+  .catch(error => console.log('this went wrong', error))
+}
+
+function displayMeals(json){
+  meal
+}
+
+
 function getFoods(){
   fetch('http://127.0.0.1:3000/foods')
   .then(resp => resp.json())

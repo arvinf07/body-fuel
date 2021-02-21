@@ -11,6 +11,11 @@ class Food{
     Food.all.push(this)
   }
 
+  static findByID(id){
+    debugger
+    return Food.all.find(element => element.id === id )
+  }
+
   rightAmount(amount){
     
   }
