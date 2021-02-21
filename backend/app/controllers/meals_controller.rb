@@ -3,8 +3,13 @@ class MealsController < ApplicationController
   def index
     ## meals = Meals where created_at is today
     ## formatt return data to include meal name, food name and macros, and meal_foods amount
+    meals = Meal.all
+    render json: meals.to_json(include: [:meal_foods])
   end
 
+
+  ##Move to edit action
+  ##Should the edit be in meal foods controller ?
   def create 
     meal = Meal.create(name: params['meal']['name'].capitalize)
     food = MealFood.create(meal_id: meal, food_id: params['meal']['meal_foods_attributes']['food_id'].to_i, amount: params['meal']['meal_foods_attributes']['amount'].to_i )
@@ -19,6 +24,7 @@ class MealsController < ApplicationController
   private
   #no implicit conversion of string into integer
   def meal_params
+    ##call switch to int here before permitting params
     params.require(:meal).permit(:name, meal_foods_attributes: [:food_id, :amount])
   end
 
