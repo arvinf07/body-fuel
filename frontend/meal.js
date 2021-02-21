@@ -4,11 +4,20 @@
 class Meal {
   static all = []
 
-  constructor({name, food, foodAmount, id}){
+  constructor(json){
+    const {name, id} = json
+    this.mealFoods = []
+    if (json.meal_foods.length != 0){
+      debugger
+      this.addFood(foodObj)
+    }
     this.name = name
-    this.mealFoods = [{food: food, foodAmount: foodAmount}]
     this.id = id
     Meal.all.push(this)
+  }
+
+  static findByName(name){
+    return Meal.all.find(element => element.name.toLowerCase() === name )
   }
   
   addFood(food, foodAmount){

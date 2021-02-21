@@ -7,17 +7,15 @@ getFoods()
 getMeals()
 
 function getMeals(){
-  fetch('http://127.0.0.1:3000/meals')
+  fetch(`http://127.0.0.1:3000/meals`)
   .then(resp => resp.json())
   .then( json => displayMeals(json) )
   .catch(error => console.log('this went wrong', error))
 }
 
 function displayMeals(json){
-  // grap the row for that meal using the name to lowercase
-  // if it has any meal_foods add a child tr for each
-  //else skip
   json.forEach(meal => {
+    new Meal(meal)
     let mealRow = document.getElementById(meal.name.toLowerCase())
     if (meal.meal_foods.length != 0){
       meal.meal_foods.forEach(meal_food => {
@@ -77,7 +75,7 @@ function submitHandler(e){
   let quantity = this.querySelector('input').value
   let newRow = document.createElement('tr')
   let mealName = this.parentElement.parentElement.previousSibling.id
-  //Ajax 
+    //Ajax 
   postMeal(foodID, quantity, mealName)
 
   newRow.innerHTML = `<td>${foodName} - ${quantity} grams</td>`
@@ -90,7 +88,7 @@ function submitHandler(e){
 function postMeal(foodId, foodAmount, mealName){
   const body = {meal: {name: mealName, meal_foods_attributes: {food_id: foodId, amount: foodAmount}}}
   const configObject = {
-    method: "POST",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json"
@@ -98,7 +96,7 @@ function postMeal(foodId, foodAmount, mealName){
     body: JSON.stringify(body)
   }; 
 
-  fetch('http://127.0.0.1:3000/meals', configObject)
+  fetch(`http://127.0.0.1:3000/meals/${Meal.findByName(mealName).id}`, configObject)
   .then(resp => resp.json())
   .then(makeMeal)
   .catch( error => alert(error))
