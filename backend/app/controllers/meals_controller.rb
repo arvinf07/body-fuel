@@ -5,20 +5,13 @@ class MealsController < ApplicationController
     ## formatt return data to include meal name, food name and macros, and meal_foods amount
     meals = Meal.all
     render json: meals.to_json(include: [:meal_foods])
-  end
+  end 
 
-
-  ##Move to edit action
-  ##Should the edit be in meal foods controller ?
-  def create 
-    meal = Meal.create(name: params['meal']['name'].capitalize)
-    food = MealFood.create(meal_id: meal, food_id: params['meal']['meal_foods_attributes']['food_id'].to_i, amount: params['meal']['meal_foods_attributes']['amount'].to_i )
-    meal.meal_foods << food
-    render json: meal.to_json(include: {foods: {except: [:created_at, updated_at]}})
-  end
-
-  def edit
-    
+  def update
+    meal = Meal.find_by(id: params[:id])
+    meal.meal_foods.build(meal_id: meal, food_id: params['meal']['meal_foods_attributes']['food_id'].to_i, amount: params['meal']['meal_foods_attributes']['amount'].to_i )
+    meal.save
+    render json: meal.to_json(include: {foods: {except: [:created_at, :updated_at]}})
   end
 
   private
