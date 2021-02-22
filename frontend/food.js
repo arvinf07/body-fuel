@@ -11,6 +11,10 @@ class Food{
     Food.all.push(this)
   }
 
+  static makeFood(json){
+    json.forEach( food => new Food(food))
+  }
+
   static findByID(id){
     return Food.all.find(element => element.id === id )
   }

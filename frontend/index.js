@@ -6,41 +6,19 @@ addButtons.forEach( e => e.addEventListener('click', renderFoodForm))
 getFoods()
 getMeals()
 
-function getMeals(){
-  fetch(`http://127.0.0.1:3000/meals`)
-  .then(resp => resp.json())
-  .then( json => displayMeals(json) )
-  .catch(error => console.log('this went wrong', error))
-}
-
-function displayMeals(json){
-  json.forEach(meal => {
-    new Meal(meal)
-    let mealRow = document.getElementById(meal.name.toLowerCase())
-    if (meal.meal_foods.length != 0){
-      meal.meal_foods.forEach(meal_food => {
-        const newFoodTr = document.createElement('tr')
-        newFoodTr.innerHTML = `
-        <td data-food-id=${meal_food.food_id}> ${Food.findByID(meal_food.food_id).name} - ${meal_food.amount} grams</td>
-        `
-        mealRow.insertAdjacentElement('afterend', newFoodTr)        
-      })
-    }
-  })
-}
-
-
 function getFoods(){
   fetch('http://127.0.0.1:3000/foods')
   .then(resp => resp.json())
-  .then( json => makeFood(json) )
+  .then( json => Food.makeFood(json) )
   .catch(error => console.log('this went wrong', error))
 }
 
-function makeFood(json){
-  json.forEach( food => new Food(food))
+function getMeals(){
+  fetch(`http://127.0.0.1:3000/meals`)
+  .then(resp => resp.json())
+  .then( json => Meal.displayMeals(json) )
+  .catch(error => console.log('this went wrong', error))
 }
-
 
 function renderFoodForm(){
   this.style.visibility = 'hidden'
@@ -76,6 +54,7 @@ function submitHandler(e){
   let newRow = document.createElement('tr')
   let mealName = this.parentElement.parentElement.previousSibling.id
     //Ajax 
+    debugger
   postMeal(foodID, quantity, mealName)
 
   newRow.innerHTML = `<td>${foodName} - ${quantity} grams</td>`
@@ -95,6 +74,7 @@ function postMeal(foodId, foodAmount, mealName){
     },
     body: JSON.stringify(body)
   }; 
+
 
   fetch(`http://127.0.0.1:3000/meals/${Meal.findByName(mealName).id}`, configObject)
   .then(resp => resp.json())
