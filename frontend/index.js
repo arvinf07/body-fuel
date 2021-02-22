@@ -45,6 +45,14 @@ function createDropDown(){
   })
 }
 
+function getMealName(row) {
+  let previous = row.previousSibling;
+  while (!previous.classList.contains('meals')) {
+    previous = previous.previousSibling;
+  }
+  return previous.id;
+}
+
 function submitHandler(e){
   //Optimistic approach.
   e.preventDefault()
@@ -52,10 +60,11 @@ function submitHandler(e){
   let foodName = this.querySelector('select').querySelector(`option[value="${foodID}"]`).innerText
   let quantity = this.querySelector('input').value
   let newRow = document.createElement('tr')
-  let mealName = this.parentElement.parentElement.previousSibling.id
-    //Ajax 
-    debugger
-  postMeal(foodID, quantity, mealName)
+
+  const currentRow = this.parentElement.parentElement
+  let mealName = getMealName(currentRow)
+      //Ajax 
+  Meal.editMeal(foodID, quantity, mealName)
 
   newRow.innerHTML = `<td>${foodName} - ${quantity} grams</td>`
   newRow.dataset.id = foodID
@@ -64,25 +73,20 @@ function submitHandler(e){
   this.remove()
 }
 
-function postMeal(foodId, foodAmount, mealName){
-  const body = {meal: {name: mealName, meal_foods_attributes: {food_id: foodId, amount: foodAmount}}}
-  const configObject = {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(body)
-  }; 
+// function editMeal(foodId, foodAmount, mealName){
+//   const body = {meal: {name: mealName, meal_foods_attributes: {food_id: foodId, amount: foodAmount}}}
+//   const configObject = {
+//     method: "PATCH",
+//     headers: {
+//       "Content-Type": "application/json",
+//       "Accept": "application/json"
+//     },
+//     body: JSON.stringify(body)
+//   }; 
 
 
-  fetch(`http://127.0.0.1:3000/meals/${Meal.findByName(mealName).id}`, configObject)
-  .then(resp => resp.json())
-  .then(makeMeal)
-  .catch( error => alert(error))
-}
-
-function makeMeal(json){
-  console.log(json)
-  // new Meal(json)
-}
+//   fetch(`http://127.0.0.1:3000/meals/${Meal.findByName(mealName).id}`, configObject)
+//   .then(resp => resp.json())
+//   .then(json => console.log(json))
+//   .catch( error => alert(error))
+// }
