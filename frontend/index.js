@@ -3,22 +3,8 @@ const foodTable = document.getElementById('food-table')
 
 addButtons.forEach( e => e.addEventListener('click', renderFoodForm))
 
-getFoods()
-getMeals()
-
-function getFoods(){
-  fetch('http://127.0.0.1:3000/foods')
-  .then(resp => resp.json())
-  .then( json => Food.makeFood(json) )
-  .catch(error => console.log('this went wrong', error))
-}
-
-function getMeals(){
-  fetch(`http://127.0.0.1:3000/meals`)
-  .then(resp => resp.json())
-  .then( json => Meal.displayMeals(json) )
-  .catch(error => console.log('this went wrong', error))
-}
+Food.getFoods()
+Meal.getMeals()
 
 function renderFoodForm(){
   this.style.visibility = 'hidden'
@@ -31,18 +17,8 @@ function renderFoodForm(){
     <input type="submit" value="Log Food">
   `
   this.parentElement.appendChild(newFoodForm)
+  Food.createOptions()
   newFoodForm.addEventListener('submit', submitHandler)
-  createDropDown()
-}
-
-//move inner part to class function
-function createDropDown(){
-  Food.all.forEach( food => {
-    let option = document.createElement('option')
-    option.value = food.id
-    option.innerText = food.name
-    document.getElementById('food').appendChild(option)
-  })
 }
 
 function getMealName(row) {
@@ -73,20 +49,3 @@ function submitHandler(e){
   this.remove()
 }
 
-// function editMeal(foodId, foodAmount, mealName){
-//   const body = {meal: {name: mealName, meal_foods_attributes: {food_id: foodId, amount: foodAmount}}}
-//   const configObject = {
-//     method: "PATCH",
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Accept": "application/json"
-//     },
-//     body: JSON.stringify(body)
-//   }; 
-
-
-//   fetch(`http://127.0.0.1:3000/meals/${Meal.findByName(mealName).id}`, configObject)
-//   .then(resp => resp.json())
-//   .then(json => console.log(json))
-//   .catch( error => alert(error))
-// }

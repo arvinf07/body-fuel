@@ -1,5 +1,3 @@
-// constructor should accept meal_foods in array
-// map over and convert them food objects
 
 class Meal {
   static all = []
@@ -7,6 +5,7 @@ class Meal {
   constructor(json){
     const {name, id} = json
     this.mealFoods = []
+    //should this be moved to its own static function
     if (json.meal_foods.length != 0){
       json.meal_foods.forEach( e => {
         let food = Food.findByID(e.food_id).name
@@ -18,6 +17,13 @@ class Meal {
     this.name = name
     this.id = id
     Meal.all.push(this)
+  }
+
+  static getMeals(){
+    fetch(`http://127.0.0.1:3000/meals`)
+    .then(resp => resp.json())
+    .then( json => Meal.displayMeals(json) )
+    .catch(error => console.log('this went wrong', error))
   }
 
   static editMeal(foodId, foodAmount, mealName){
@@ -58,6 +64,7 @@ class Meal {
     return Meal.all.find(element => element.name.toLowerCase() === name )
   }
   
+  //Adds new food to meal instance
   addFood(food, foodAmount, mealFoodID){
     let newFood = {food: food, foodAmount: foodAmount, id: mealFoodID}
     this.mealFoods.push(newFood)
