@@ -50,7 +50,7 @@ function getMealName(row) {
   while (!previous.classList.contains('meals')) {
     previous = previous.previousSibling;
   }
-  return previous.id;
+  return previous;
 }
 
 function submitHandler(e){
@@ -62,13 +62,13 @@ function submitHandler(e){
   let newRow = document.createElement('tr')
 
   const currentRow = this.parentElement.parentElement
-  let mealName = getMealName(currentRow)
+  let mealName = getMealName(currentRow).id
       //Ajax 
   Meal.editMeal(foodID, quantity, mealName)
 
   newRow.innerHTML = `<td>${foodName} - ${quantity} grams</td>`
   newRow.dataset.id = foodID
-  document.querySelector('tbody').insertBefore(newRow, this.closest('tr'))
+  document.querySelector('tbody').insertBefore(newRow, getMealName(currentRow).nextElementSibling)
   this.previousElementSibling.style.visibility = ''
   this.remove()
 }
