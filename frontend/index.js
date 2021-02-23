@@ -1,10 +1,12 @@
 const addButtons = document.querySelectorAll('button')
 const foodTable = document.getElementById('food-table')
+const foodRows = document.getElementsByClassName('food-row')
 
 addButtons.forEach( e => e.addEventListener('click', renderFoodForm))
 
 Food.getFoods()
 Meal.getMeals()
+
 
 function renderFoodForm(){
   this.style.visibility = 'hidden'
@@ -41,11 +43,26 @@ function submitHandler(e){
   let mealName = getMealName(currentRow).id
       //Ajax 
   Meal.editMeal(foodID, quantity, mealName)
+
   newRow.innerHTML = `<td>${foodName} - ${quantity} grams - 
   ${Food.findByID(parseFloat(foodID)).displayCalories(quantity)} calories</td>`
+
   newRow.dataset.id = foodID
   document.querySelector('tbody').insertBefore(newRow, getMealName(currentRow).nextElementSibling)
+  addDeleteBtn(newRow)
   this.previousElementSibling.style.visibility = ''
   this.remove()
+}
+
+function addDeleteBtn(newRow){
+  let deleteBtn = document.createElement('button')
+  deleteBtn.textContent = 'Remove'
+  deleteBtn.addEventListener('click', handleDelete)
+  deleteBtn.classList += 'remove-btn'
+  newRow.appendChild(deleteBtn)
+}
+
+function handleDelete(e){
+  console.log(e)
 }
 

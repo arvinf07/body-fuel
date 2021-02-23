@@ -56,10 +56,12 @@ class Meal {
           <td data-food-id=${meal_food.food_id}> ${Food.findByID(meal_food.food_id).name}
            - ${meal_food.amount} grams - ${food.displayCalories(meal_food.amount)} calories</td>
           `
-          mealRow.insertAdjacentElement('afterend', newFoodTr)        
+          mealRow.insertAdjacentElement('afterend', newFoodTr)    
+          newFoodTr.classList += 'food-row'    
         })
       }
     })
+    Array.from(foodRows).forEach(row => addDeleteBtn(row) )
   }
 
   static findByName(name){

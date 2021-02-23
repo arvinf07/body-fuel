@@ -15,6 +15,12 @@
   transition: width 0.5s;
 }
 
+.remove-btn {
+  margin-left: -90px;
+  top: 15px;
+  position: relative;
+
+}
 
 
 table, th, td {
