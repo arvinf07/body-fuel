@@ -2,8 +2,7 @@
 class MealFoodsController < ApplicationController
 
   def destroy
-    byebug
-    MealFood.find_by(params[:id])
+    MealFood.find_by(id: params[:id]).delete
   end
 
 end
