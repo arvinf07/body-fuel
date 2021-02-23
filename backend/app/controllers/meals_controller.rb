@@ -13,7 +13,6 @@ class MealsController < ApplicationController
   def update
     meal = Meal.find_by(id: params[:id])
     meal.meal_foods.build(meal_params[:meal_foods_attributes])
-    # meal.meal_foods.build(meal_id: meal, food_id: params['meal']['meal_foods_attributes']['food_id'].to_i, amount: params['meal']['meal_foods_attributes']['amount'].to_i )
     meal.save
     render json: meal.to_json(include: {foods: {except: [:created_at, :updated_at]}})
   end
