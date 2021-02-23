@@ -51,8 +51,10 @@ class Meal {
       if (meal.meal_foods.length != 0){
         meal.meal_foods.forEach(meal_food => {
           const newFoodTr = document.createElement('tr')
+          const food = Food.findByID(meal_food.food_id)
           newFoodTr.innerHTML = `
-          <td data-food-id=${meal_food.food_id}> ${Food.findByID(meal_food.food_id).name} - ${meal_food.amount} grams</td>
+          <td data-food-id=${meal_food.food_id}> ${Food.findByID(meal_food.food_id).name}
+           - ${meal_food.amount} grams - ${food.displayCalories(meal_food.amount)} calories</td>
           `
           mealRow.insertAdjacentElement('afterend', newFoodTr)        
         })
@@ -63,7 +65,7 @@ class Meal {
   static findByName(name){
     return Meal.all.find(element => element.name.toLowerCase() === name )
   }
-  
+
   //Adds new food to meal instance
   addFood(food, foodAmount, mealFoodID){
     let newFood = {food: food, foodAmount: foodAmount, id: mealFoodID}

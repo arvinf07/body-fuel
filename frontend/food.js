@@ -1,9 +1,9 @@
 class Food{
   static all = []
 
-  constructor({name, cal, fat, carb, protein, id}){
+  constructor({name, calories, fat, carb, protein, id}){
     this.name = name
-    this.cal = cal
+    this.calories = calories
     this.fat = fat
     this.carb = carb
     this.protein = protein
@@ -35,7 +35,9 @@ class Food{
     return Food.all.find(element => element.id === id )
   }
 
-  rightAmount(amount){
+  displayCalories(amount){
+    let base = this.calories/100
+    return Math.round(base * amount)
     // calculate the ratio given the amount
     // return an object with all the macros and the values
   }
