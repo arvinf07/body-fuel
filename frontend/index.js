@@ -41,8 +41,8 @@ function submitHandler(e){
   let mealName = getMealName(currentRow).id
       //Ajax 
   Meal.editMeal(foodID, quantity, mealName)
-
-  newRow.innerHTML = `<td>${foodName} - ${quantity} grams</td>`
+  newRow.innerHTML = `<td>${foodName} - ${quantity} grams - 
+  ${Food.findByID(parseFloat(foodID)).displayCalories(quantity)} calories</td>`
   newRow.dataset.id = foodID
   document.querySelector('tbody').insertBefore(newRow, getMealName(currentRow).nextElementSibling)
   this.previousElementSibling.style.visibility = ''
