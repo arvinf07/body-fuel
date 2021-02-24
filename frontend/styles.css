@@ -20,7 +20,14 @@ body{
 
 .remove-btn {
   margin-left: -100px;
-  top: 10px;
+  top: 25px;
+  position: relative;
+
+}
+
+.cancel-btn{
+  margin-left: 600px;
+  top: -30px;
   position: relative;
 
 }

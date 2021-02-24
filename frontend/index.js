@@ -7,6 +7,22 @@ addButtons.forEach( e => e.addEventListener('click', renderFoodForm))
 Food.getFoods()
 Meal.getMeals()
 
+function createCancelBtn(newFoodForm){
+  let cancelBtn = document.createElement('button')
+  cancelBtn.textContent = 'Cancel'
+  cancelBtn.classList += "remove-btn btn btn-danger btn-sm cancel-btn"
+  newFoodForm.appendChild(cancelBtn)
+
+  cancelBtn.addEventListener('click', e => {
+    newFoodForm.innerHTML = ''
+    newFoodForm.previousElementSibling.style.visibility = ''
+    // if (addFoodBtn.style.visibility === ''){
+    //   addFoodBtn.style.visibility = 'hidden' 
+    // }else{
+    //   addFoodBtn.style.visibility = ''
+    // }
+  })
+}
 
 function renderFoodForm(){
   this.style.visibility = 'hidden'
@@ -16,8 +32,9 @@ function renderFoodForm(){
     </select>
     Quantity(in grams)
     <input type='number' min=1 required='true'>
-    <input type="submit" value="Log Food">
+    <input class='btn btn-primary btn-sm' type="submit" value="Log Food">
   `
+  createCancelBtn(newFoodForm)
   this.parentElement.appendChild(newFoodForm)
   Food.createOptions()
   newFoodForm.addEventListener('submit', submitHandler)
@@ -63,6 +80,8 @@ function addDeleteBtn(newRow){
   newRow.appendChild(deleteBtn)
 }
 
+
+// Move to meal class or food IDK
 function handleDelete(e){
   let mealFoodID = e.target.previousElementSibling.dataset.mealFoodId
   e.target.parentElement.remove()
