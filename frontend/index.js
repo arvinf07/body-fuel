@@ -15,7 +15,7 @@ function renderFoodForm(){
     <select name="food_name" id="food">
     </select>
     Quantity(in grams)
-    <input type='number' min=0 required='true'>
+    <input type='number' min=1 required='true'>
     <input type="submit" value="Log Food">
   `
   this.parentElement.appendChild(newFoodForm)
@@ -38,13 +38,14 @@ function submitHandler(e){
   let foodName = this.querySelector('select').querySelector(`option[value="${foodID}"]`).innerText
   let quantity = this.querySelector('input').value
   let newRow = document.createElement('tr')
+  newRow.classList += 'food-row'
 
   const currentRow = this.parentElement.parentElement
   let mealName = getMealName(currentRow).id
       //Ajax 
   Meal.editMeal(foodID, quantity, mealName)
 
-  newRow.innerHTML = `<td>${foodName} - ${quantity} grams - 
+  newRow.innerHTML = `<td>${foodName} <br><span class='quantity'>${quantity} grams</span>  - 
   ${Food.findByID(parseFloat(foodID)).displayCalories(quantity)} calories</td>`
 
   newRow.dataset.id = foodID
@@ -58,7 +59,7 @@ function addDeleteBtn(newRow){
   let deleteBtn = document.createElement('button')
   deleteBtn.textContent = 'Remove'
   deleteBtn.addEventListener('click', handleDelete)
-  deleteBtn.classList += 'remove-btn'
+  deleteBtn.classList += 'remove-btn btn btn-danger btn-sm'
   newRow.appendChild(deleteBtn)
 }
 

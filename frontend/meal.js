@@ -54,7 +54,7 @@ class Meal {
           const food = Food.findByID(meal_food.food_id)
           newFoodTr.innerHTML = `
           <td data-food-id=${meal_food.food_id} data-meal-food-id=${meal_food.id}> ${Food.findByID(meal_food.food_id).name}
-           - ${meal_food.amount} grams - ${food.displayCalories(meal_food.amount)} calories</td>
+          <br>${meal_food.amount} grams - ${food.displayCalories(meal_food.amount)} calories</td>
           `
           mealRow.insertAdjacentElement('afterend', newFoodTr)    
           newFoodTr.classList += 'food-row'    
@@ -69,7 +69,7 @@ class Meal {
   }
 
   static removeFood(){
-    
+
   }
 
   //Adds new food to Meal instance
