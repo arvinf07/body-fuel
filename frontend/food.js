@@ -23,7 +23,8 @@ class Food{
   static getFoods(){
     fetch('http://127.0.0.1:3000/foods')
     .then(resp => resp.json())
-    .then( json => Food.makeFood(json) )
+    .then( json => {
+      Food.makeFood(json)} )
     .catch(error => console.log('this went wrong', error))
   }
   

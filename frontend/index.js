@@ -2,7 +2,8 @@ const addButtons = document.querySelectorAll('button')
 const foodTable = document.getElementById('food-table')
 const foodRows = document.getElementsByClassName('food-row')
 
-addButtons.forEach( e => e.addEventListener('click', renderFoodForm))
+addButtons.forEach( e => e.addEventListener('click', renderFoodForm)) //this is the window because its in the root
+
 
 Food.getFoods()
 Meal.getMeals()
@@ -14,13 +15,9 @@ function createCancelBtn(newFoodForm){
   newFoodForm.appendChild(cancelBtn)
 
   cancelBtn.addEventListener('click', e => {
+    //Try a toggle here
     newFoodForm.innerHTML = ''
     newFoodForm.previousElementSibling.style.visibility = ''
-    // if (addFoodBtn.style.visibility === ''){
-    //   addFoodBtn.style.visibility = 'hidden' 
-    // }else{
-    //   addFoodBtn.style.visibility = ''
-    // }
   })
 }
 
@@ -41,6 +38,7 @@ function renderFoodForm(){
 }
 
 function getMealName(row) {
+  console.log(this.target)
   let previous = row.previousSibling;
   while (!previous.classList.contains('meals')) {
     previous = previous.previousSibling;
@@ -100,3 +98,29 @@ function handleDelete(e){
     .catch( error => console.log(error))
 }
 
+// FILTER SEARCH
+// const ul = document.getElementById('food-list')
+// function makeLis(){
+//   Food.all.forEach( food => {
+//     let li = document.createElement('li')
+//     li.innerText = food.name
+//     ul.appendChild(li)
+//   })
+// }
+
+// function filter(){
+//   let input = document.querySelector('div.filter input')
+//   let filterValue = document.querySelector('div.filter input').value.toUpperCase()
+//   let lis = document.getElementsByTagName('li')
+//   for(let i = 0; i < lis.length; i++){
+//     let textValue = lis[i].innerText
+//     if (textValue.toUpperCase().indexOf(filterValue) > 1){
+//       lis[i].style.diplay = ''
+//     }else{
+//       lis[i].style.display = 'none'
+//     }
+  
+//   }
+    
+
+// }

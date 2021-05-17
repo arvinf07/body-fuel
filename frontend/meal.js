@@ -8,10 +8,10 @@ class Meal {
     //should this be moved to its own static function
     if (json.meal_foods.length != 0){
       json.meal_foods.forEach( e => {
-        let food = Food.findByID(e.food_id).name
+        let food = Food.findByID(e.food_id)
         let foodAmount = e.amount
         let mealFoodID = e.id
-        this.addFood(food, foodAmount, mealFoodID)
+        this.addFood(food, foodAmount, mealFoodID) // Move to 
       })
     }
     this.name = name
@@ -37,39 +37,40 @@ class Meal {
       body: JSON.stringify(body)
     }; 
   
-  
     fetch(`http://127.0.0.1:3000/meals/${Meal.findByName(mealName).id}`, configObject)
     .then(resp => resp.json())
     .then(json => console.log(json))
     .catch( error => alert(error))
   }
 
+  displayMeal(){
+    let mealRow = document.getElementById(this.name.toLowerCase())
+    if (this.mealFoods.length != 0){
+      this.mealFoods.forEach(meal_food => {
+        const newFoodTr = document.createElement('tr')
+        newFoodTr.innerHTML = `
+        <td data-food-id=${meal_food.food.id} data-meal-food-id=${meal_food.id}> ${meal_food.food.name}
+        <br>${meal_food.foodAmount} grams - ${meal_food.food.displayCalories(meal_food.foodAmount)} calories</td>
+        `
+        mealRow.insertAdjacentElement('afterend', newFoodTr)    
+        newFoodTr.classList += 'food-row'    
+      })
+    }
+  }
+
   static displayMeals(json){
     json.forEach(meal => {
-      new Meal(meal)
-      let mealRow = document.getElementById(meal.name.toLowerCase())
-      if (meal.meal_foods.length != 0){
-        meal.meal_foods.forEach(meal_food => {
-          const newFoodTr = document.createElement('tr')
-          const food = Food.findByID(meal_food.food_id)
-          newFoodTr.innerHTML = `
-          <td data-food-id=${meal_food.food_id} data-meal-food-id=${meal_food.id}> ${Food.findByID(meal_food.food_id).name}
-          <br>${meal_food.amount} grams - ${food.displayCalories(meal_food.amount)} calories</td>
-          `
-          mealRow.insertAdjacentElement('afterend', newFoodTr)    
-          newFoodTr.classList += 'food-row'    
-        })
-      }
+      let mealObj = new Meal(meal)
+      mealObj.displayMeal()
     })
     Array.from(foodRows).forEach(row => addDeleteBtn(row) )
+    //this is the class definition. 
+    // Because it binds to the this value of the parent function declaration
+
   }
 
   static findByName(name){
     return Meal.all.find(element => element.name.toLowerCase() === name )
-  }
-
-  static removeFood(){
-
   }
 
   //Adds new food to Meal instance
