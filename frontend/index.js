@@ -38,7 +38,6 @@ function renderFoodForm(){
 }
 
 function getMealName(row) {
-  console.log(this.target)
   let previous = row.previousSibling;
   while (!previous.classList.contains('meals')) {
     previous = previous.previousSibling;
@@ -56,9 +55,8 @@ function submitHandler(e){
   newRow.classList += 'food-row'
 
   const currentRow = this.parentElement.parentElement
-  let mealName = getMealName(currentRow).id
-      //Ajax 
-  Meal.editMeal(foodID, quantity, mealName)
+  let mealObj = Meal.findByName(getMealName(currentRow).id)
+  mealObj.editMeal(foodID, quantity)
 
   newRow.innerHTML = `<td>${foodName} <br><span class='quantity'>${quantity} grams</span>  - 
   ${Food.findByID(parseFloat(foodID)).displayCalories(quantity)} calories</td>`

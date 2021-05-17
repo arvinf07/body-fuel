@@ -26,8 +26,8 @@ class Meal {
     .catch(error => console.log('this went wrong', error))
   }
 
-  static editMeal(foodId, foodAmount, mealName){
-    const body = {meal: {name: mealName, meal_foods_attributes: {food_id: foodId, amount: foodAmount}}}
+  editMeal(foodId, foodAmount){
+    const body = {meal: {name: this.name, meal_foods_attributes: {food_id: foodId, amount: foodAmount}}}
     const configObject = {
       method: "PATCH",
       headers: {
@@ -37,7 +37,7 @@ class Meal {
       body: JSON.stringify(body)
     }; 
   
-    fetch(`http://127.0.0.1:3000/meals/${Meal.findByName(mealName).id}`, configObject)
+    fetch(`http://127.0.0.1:3000/meals/${this.id}`, configObject)
     .then(resp => resp.json())
     .then(json => console.log(json))
     .catch( error => alert(error))
