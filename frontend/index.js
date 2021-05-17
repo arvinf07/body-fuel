@@ -8,6 +8,7 @@ addButtons.forEach( e => e.addEventListener('click', renderFoodForm)) //this is 
 Food.getFoods()
 Meal.getMeals()
 
+
 function createCancelBtn(newFoodForm){
   let cancelBtn = document.createElement('button')
   cancelBtn.textContent = 'Cancel'
@@ -21,6 +22,9 @@ function createCancelBtn(newFoodForm){
 }
 
 function renderFoodForm(){
+  closeOldForm() 
+  
+  //hides button and creates form
   this.style.visibility = 'hidden'
   let newFoodForm = document.createElement('form')
   newFoodForm.innerHTML = `
@@ -34,6 +38,15 @@ function renderFoodForm(){
   this.parentElement.appendChild(newFoodForm)
   Food.createOptions()
   newFoodForm.addEventListener('submit', submitHandler)
+}
+
+function closeOldForm(){
+  //Closes old food form
+  let oldForm = document.querySelector('form')
+  if (oldForm){
+    oldForm.previousElementSibling.style.visibility = ''
+    oldForm.remove()
+  }
 }
 
 function getMealName(row) {
