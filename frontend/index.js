@@ -15,9 +15,8 @@ function createCancelBtn(newFoodForm){
   newFoodForm.appendChild(cancelBtn)
 
   cancelBtn.addEventListener('click', e => {
-    //Try a toggle here
-    newFoodForm.innerHTML = ''
     newFoodForm.previousElementSibling.style.visibility = ''
+    newFoodForm.remove()
   })
 }
 

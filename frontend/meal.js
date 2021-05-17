@@ -19,6 +19,18 @@ class Meal {
     Meal.all.push(this)
   }
 
+  static displayMeals(json){
+    json.forEach(meal => {
+      let mealObj = new Meal(meal)
+      mealObj.displayMeal()
+    })
+    Array.from(foodRows).forEach(row => addDeleteBtn(row) )
+  }
+
+  static findByName(name){
+    return Meal.all.find(element => element.name.toLowerCase() === name )
+  }
+
   static getMeals(){
     fetch(`http://127.0.0.1:3000/meals`)
     .then(resp => resp.json())
@@ -58,24 +70,9 @@ class Meal {
     }
   }
 
-  static displayMeals(json){
-    json.forEach(meal => {
-      let mealObj = new Meal(meal)
-      mealObj.displayMeal()
-    })
-    Array.from(foodRows).forEach(row => addDeleteBtn(row) )
-    //this is the class definition. 
-    // Because it binds to the this value of the parent function declaration
-
-  }
-
-  static findByName(name){
-    return Meal.all.find(element => element.name.toLowerCase() === name )
-  }
-
-  //Adds new food to Meal instance
   addFood(food, foodAmount, mealFoodID){
     let newFood = {food: food, foodAmount: foodAmount, id: mealFoodID}
     this.mealFoods.push(newFood)
   }
+  
 }
