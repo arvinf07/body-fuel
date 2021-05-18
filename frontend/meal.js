@@ -22,9 +22,23 @@ class Meal {
   static displayMeals(json){
     json.forEach(meal => {
       let mealObj = new Meal(meal)
-      mealObj.displayMeal()
+      if (mealObj.mealFoods.length != 0){
+        mealObj.mealFoods.forEach( meal_food => mealObj.displayMealFood(meal_food))
+      }
     })
     Array.from(foodRows).forEach(row => addDeleteBtn(row) )
+  }
+  //display one mealFood at a time
+  displayMealFood(meal_food) {
+    let mealRow = document.getElementById(this.name.toLowerCase())
+    const newFoodTr = document.createElement('tr')
+
+    newFoodTr.innerHTML = `
+    <td data-food-id=${meal_food.food.id} data-meal-food-id=${meal_food.id}> ${meal_food.food.name}
+    <br>${meal_food.foodAmount} grams - ${meal_food.food.displayCalories(meal_food.foodAmount)} calories</td>
+    `
+    mealRow.insertAdjacentElement('afterend', newFoodTr)    
+    newFoodTr.classList += 'food-row'    
   }
 
   static findByName(name){
@@ -48,33 +62,22 @@ class Meal {
       },
       body: JSON.stringify(body)
     }; 
-  
+    console.log(this.id)
     fetch(`http://127.0.0.1:3000/meals/${this.id}`, configObject)
     .then(resp => resp.json())
-    .then(json => console.log(json))
+    .then(json => {
+      console.log(json)
+      this.addFood(json)
+      this.displayMealFood(json)})
     .catch( error => alert(error))
   }
 
-  displayMeal(){
-    let mealRow = document.getElementById(this.name.toLowerCase())
-    if (this.mealFoods.length != 0){
-      this.mealFoods.forEach(meal_food => {
-        const newFoodTr = document.createElement('tr')
-        newFoodTr.innerHTML = `
-        <td data-food-id=${meal_food.food.id} data-meal-food-id=${meal_food.id}> ${meal_food.food.name}
-        <br>${meal_food.foodAmount} grams - ${meal_food.food.displayCalories(meal_food.foodAmount)} calories</td>
-        `
-        mealRow.insertAdjacentElement('afterend', newFoodTr)    
-        newFoodTr.classList += 'food-row'    
-      })
-    }
-  }
-
+  
   addFood(food, foodAmount, mealFoodID){
     let newFood = {food: food, foodAmount: foodAmount, id: mealFoodID}
     this.mealFoods.push(newFood)
   }
 
-  
+
 
 }
