@@ -74,5 +74,7 @@ class Meal {
     let newFood = {food: food, foodAmount: foodAmount, id: mealFoodID}
     this.mealFoods.push(newFood)
   }
+
   
+
 }

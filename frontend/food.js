@@ -19,6 +19,25 @@ class Food{
       document.getElementById('food').appendChild(option)
     })
   }
+
+  // Move to meal class or food IDK
+  static handleDelete(e){
+    let mealFoodID = e.target.previousElementSibling.dataset.mealFoodId
+    e.target.parentElement.remove()
+
+    const body = {meal_food: {id: mealFoodID}}
+    const configObject = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(body)
+    }; 
+    fetch(`http://127.0.0.1:3000/meal_foods/${mealFoodID}`, configObject)
+      .then(resp => console.log(resp))
+      .catch( error => console.log(error))
+  }
   
   static getFoods(){
     fetch('http://127.0.0.1:3000/foods')
