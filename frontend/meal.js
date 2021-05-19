@@ -3,20 +3,24 @@ class Meal {
   static all = []
 
   constructor(json){
-    const {name, id} = json
+    const {name, id, meal_foods} = json
     this.mealFoods = []
-    //should this be moved to its own static function
-    if (json.meal_foods.length != 0){
-      json.meal_foods.forEach( e => {
-        let food = Food.findByID(e.food_id)
-        let foodAmount = e.amount
-        let mealFoodID = e.id
-        this.addFood(food, foodAmount, mealFoodID) // Move to 
-      })
+
+    if (meal_foods.length != 0){
+      meal_foods.forEach(mealFood => this.createMealFood(mealFood))
     }
+
     this.name = name
     this.id = id
     Meal.all.push(this)
+  }
+
+  createMealFood(mealFood){
+    //creates and returns js object from json data
+    let food = Food.findByID(mealFood.food_id)
+    let foodAmount = mealFood.amount         
+    let mealFoodID = mealFood.id
+    return this.addMealFood(food, foodAmount, mealFoodID)
   }
 
   static displayMeals(json){
@@ -26,19 +30,21 @@ class Meal {
         mealObj.mealFoods.forEach( meal_food => mealObj.displayMealFood(meal_food))
       }
     })
-    Array.from(foodRows).forEach(row => addDeleteBtn(row) )
   }
+
   //display one mealFood at a time
   displayMealFood(meal_food) {
     let mealRow = document.getElementById(this.name.toLowerCase())
     const newFoodTr = document.createElement('tr')
 
+    // add MACRONUTRIENTS HERE
     newFoodTr.innerHTML = `
     <td data-food-id=${meal_food.food.id} data-meal-food-id=${meal_food.id}> ${meal_food.food.name}
     <br>${meal_food.foodAmount} grams - ${meal_food.food.displayCalories(meal_food.foodAmount)} calories</td>
     `
     mealRow.insertAdjacentElement('afterend', newFoodTr)    
     newFoodTr.classList += 'food-row'    
+    addDeleteBtn(newFoodTr)
   }
 
   static findByName(name){
@@ -62,22 +68,20 @@ class Meal {
       },
       body: JSON.stringify(body)
     }; 
-    console.log(this.id)
+
     fetch(`http://127.0.0.1:3000/meals/${this.id}`, configObject)
     .then(resp => resp.json())
-    .then(json => {
-      console.log(json)
-      this.addFood(json)
-      this.displayMealFood(json)})
-    .catch( error => alert(error))
+    .then(({meal_foods}) => {
+      let lastMealFood = meal_foods[meal_foods.length - 1]
+      this.displayMealFood(this.createMealFood(lastMealFood))
+    })
+    .catch( error => console.log(error))
   }
 
-  
-  addFood(food, foodAmount, mealFoodID){
+  addMealFood(food, foodAmount, mealFoodID){
     let newFood = {food: food, foodAmount: foodAmount, id: mealFoodID}
     this.mealFoods.push(newFood)
+    return newFood
   }
-
-
 
 }

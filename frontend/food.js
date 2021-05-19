@@ -58,8 +58,6 @@ class Food{
   displayCalories(amount){
     let base = this.calories/100
     return Math.round(base * amount)
-    // calculate the ratio given the amount
-    // return an object with all the macros and the values
   }
 
 }

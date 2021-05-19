@@ -58,7 +58,6 @@ function getMealName(row) {
 }
 
 function submitHandler(e){
-  //Optimistic approach.
   e.preventDefault()
   let foodID = this.querySelector('select').value
   let foodName = this.querySelector('select').querySelector(`option[value="${foodID}"]`).innerText
@@ -69,16 +68,6 @@ function submitHandler(e){
   const currentRow = this.parentElement.parentElement
   let mealObj = Meal.findByName(getMealName(currentRow).id)
   mealObj.editMeal(foodID, quantity)
-  
-  // newRow.innerHTML = `
-  // <td>${foodName} - <span class='quantity'>${quantity} grams</span> <br>
-  // ${Food.findByID(parseFloat(foodID)).displayCalories(quantity)} calories - 
-  // </td>`
-
-  // newRow.dataset.id = foodID
-  // document.querySelector('tbody').insertBefore(newRow, getMealName(currentRow).nextElementSibling)
-  // addDeleteBtn(newRow)
-
   this.previousElementSibling.style.visibility = ''
   this.remove()
 }
