@@ -23,7 +23,7 @@ function createCancelBtn(newFoodForm){
 
 function renderFoodForm(){
   closeOldForm() 
-  
+
   //hides button and creates form
   this.style.visibility = 'hidden'
   let newFoodForm = document.createElement('form')
@@ -58,7 +58,6 @@ function getMealName(row) {
 }
 
 function submitHandler(e){
-  //Optimistic approach.
   e.preventDefault()
   let foodID = this.querySelector('select').value
   let foodName = this.querySelector('select').querySelector(`option[value="${foodID}"]`).innerText
@@ -69,13 +68,6 @@ function submitHandler(e){
   const currentRow = this.parentElement.parentElement
   let mealObj = Meal.findByName(getMealName(currentRow).id)
   mealObj.editMeal(foodID, quantity)
-
-  newRow.innerHTML = `<td>${foodName} <br><span class='quantity'>${quantity} grams</span>  - 
-  ${Food.findByID(parseFloat(foodID)).displayCalories(quantity)} calories</td>`
-
-  newRow.dataset.id = foodID
-  document.querySelector('tbody').insertBefore(newRow, getMealName(currentRow).nextElementSibling)
-  addDeleteBtn(newRow)
   this.previousElementSibling.style.visibility = ''
   this.remove()
 }
@@ -83,29 +75,9 @@ function submitHandler(e){
 function addDeleteBtn(newRow){
   let deleteBtn = document.createElement('button')
   deleteBtn.textContent = 'Remove'
-  deleteBtn.addEventListener('click', handleDelete)
+  deleteBtn.addEventListener('click', Food.handleDelete)
   deleteBtn.classList += 'remove-btn btn btn-danger btn-sm'
   newRow.appendChild(deleteBtn)
-}
-
-
-// Move to meal class or food IDK
-function handleDelete(e){
-  let mealFoodID = e.target.previousElementSibling.dataset.mealFoodId
-  e.target.parentElement.remove()
-
-  const body = {meal_food: {id: mealFoodID}}
-  const configObject = {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(body)
-  }; 
-  fetch(`http://127.0.0.1:3000/meal_foods/${mealFoodID}`, configObject)
-    .then(resp => console.log(resp))
-    .catch( error => console.log(error))
 }
 
 // FILTER SEARCH
