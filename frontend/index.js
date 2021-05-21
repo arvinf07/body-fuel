@@ -49,6 +49,14 @@ function closeOldForm(){
   }
 }
 
+function displayMacros({food, id, foodAmount}, newRow){
+  // add MACRONUTRIENTS HERE
+  newRow.innerHTML = `
+  <td data-food-id=${food.id} data-meal-food-id=${id}> <b>${food.name}</b> - ${foodAmount} grams
+  <br>${food.displayCalories(foodAmount)} calories</td>
+  `
+}
+
 function getMealName(row) {
   let previous = row.previousSibling;
   while (!previous.classList.contains('meals')) {
