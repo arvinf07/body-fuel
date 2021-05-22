@@ -50,10 +50,10 @@ function closeOldForm(){
 }
 
 function displayMacros({food, id, foodAmount}, newRow){
-  // add MACRONUTRIENTS HERE
+  let {calories, protein, fat, carb} = food.createMacros(foodAmount)
   newRow.innerHTML = `
   <td data-food-id=${food.id} data-meal-food-id=${id}> <b>${food.name}</b> - ${foodAmount} grams
-  <br>${food.displayCalories(foodAmount)} calories</td>
+  <br>${calories} calories - </td>
   `
 }
 
