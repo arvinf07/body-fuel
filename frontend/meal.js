@@ -37,11 +37,7 @@ class Meal {
     let mealRow = document.getElementById(this.name.toLowerCase())
     const newFoodTr = document.createElement('tr')
 
-    // add MACRONUTRIENTS HERE
-    newFoodTr.innerHTML = `
-    <td data-food-id=${meal_food.food.id} data-meal-food-id=${meal_food.id}> ${meal_food.food.name}
-    <br>${meal_food.foodAmount} grams - ${meal_food.food.displayCalories(meal_food.foodAmount)} calories</td>
-    `
+    displayMacros(meal_food, newFoodTr)
     mealRow.insertAdjacentElement('afterend', newFoodTr)    
     newFoodTr.classList += 'food-row'    
     addDeleteBtn(newFoodTr)

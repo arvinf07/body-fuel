@@ -49,6 +49,18 @@ function closeOldForm(){
   }
 }
 
+function displayMacros({food, id, foodAmount}, newRow){
+  let {calories, protein, fat, carb} = food.createMacros(foodAmount)
+  newRow.innerHTML = `
+  <td data-food-id=${food.id} data-meal-food-id=${id}> <b>${food.name}</b> - ${foodAmount} grams
+  <br>${calories} calories  |
+    <span class="fats">${fat}g fat</span>  |
+    <span class="carbs">${carb}g carbohydrate</span>  |
+    <span class="proteins">${protein}g protein</span>
+  </td>
+  `
+}
+
 function getMealName(row) {
   let previous = row.previousSibling;
   while (!previous.classList.contains('meals')) {
