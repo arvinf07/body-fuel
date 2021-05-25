@@ -5,7 +5,7 @@ class Meal {
   constructor(json){
     const {name, id, meal_foods} = json
     this.mealFoods = []
-
+    // refactor 
     if (meal_foods.length != 0){
       meal_foods.forEach(mealFood => this.createMealFood(mealFood))
     }
@@ -20,27 +20,8 @@ class Meal {
     let food = Food.findByID(mealFood.food_id)
     let foodAmount = mealFood.amount         
     let mealFoodID = mealFood.id
+    //is this return neccessary
     return this.addMealFood(food, foodAmount, mealFoodID)
-  }
-
-  static displayMeals(json){
-    json.forEach(meal => {
-      let mealObj = new Meal(meal)
-      if (mealObj.mealFoods.length != 0){
-        mealObj.mealFoods.forEach( meal_food => mealObj.displayMealFood(meal_food))
-      }
-    })
-  }
-
-  //display one mealFood at a time
-  displayMealFood(meal_food) {
-    let mealRow = document.getElementById(this.name.toLowerCase())
-    const newFoodTr = document.createElement('tr')
-
-    displayMacros(meal_food, newFoodTr)
-    mealRow.insertAdjacentElement('afterend', newFoodTr)    
-    newFoodTr.classList += 'food-row'    
-    addDeleteBtn(newFoodTr)
   }
 
   static findByName(name){
@@ -50,7 +31,7 @@ class Meal {
   static getMeals(){
     fetch(`http://127.0.0.1:3000/meals`)
     .then(resp => resp.json())
-    .then( json => Meal.displayMeals(json) )
+    .then( json => displayMeals(json) )
     .catch(error => console.log('this went wrong', error))
   }
 
@@ -69,7 +50,7 @@ class Meal {
     .then(resp => resp.json())
     .then(({meal_foods}) => {
       let lastMealFood = meal_foods[meal_foods.length - 1]
-      this.displayMealFood(this.createMealFood(lastMealFood))
+      displayMealFood(this.createMealFood(lastMealFood), this.name)
     })
     .catch( error => console.log(error))
   }

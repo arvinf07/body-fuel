@@ -70,6 +70,7 @@ function getMealName(row) {
 }
 
 function submitHandler(e){
+  // what is neccessary here?
   e.preventDefault()
   let foodID = this.querySelector('select').value
   let foodName = this.querySelector('select').querySelector(`option[value="${foodID}"]`).innerText
@@ -92,29 +93,22 @@ function addDeleteBtn(newRow){
   newRow.appendChild(deleteBtn)
 }
 
-// FILTER SEARCH
-// const ul = document.getElementById('food-list')
-// function makeLis(){
-//   Food.all.forEach( food => {
-//     let li = document.createElement('li')
-//     li.innerText = food.name
-//     ul.appendChild(li)
-//   })
-// }
+function displayMeals(json){
+  json.forEach(meal => {
+    let mealObj = new Meal(meal)
+    if (mealObj.mealFoods.length != 0){
+      mealObj.mealFoods.forEach( meal_food => displayMealFood(meal_food, mealObj.name))
+    }
+  })
+}
 
-// function filter(){
-//   let input = document.querySelector('div.filter input')
-//   let filterValue = document.querySelector('div.filter input').value.toUpperCase()
-//   let lis = document.getElementsByTagName('li')
-//   for(let i = 0; i < lis.length; i++){
-//     let textValue = lis[i].innerText
-//     if (textValue.toUpperCase().indexOf(filterValue) > 1){
-//       lis[i].style.diplay = ''
-//     }else{
-//       lis[i].style.display = 'none'
-//     }
-  
-//   }
-    
+//display one mealFood at a time
+function displayMealFood(meal_food, mealName) {
+  let mealRow = document.getElementById(mealName.toLowerCase())
+  const newFoodTr = document.createElement('tr')
 
-// }
+  displayMacros(meal_food, newFoodTr)
+  mealRow.insertAdjacentElement('afterend', newFoodTr)    
+  newFoodTr.classList += 'food-row'    
+  addDeleteBtn(newFoodTr)
+}

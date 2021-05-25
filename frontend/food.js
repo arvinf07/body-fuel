@@ -55,13 +55,6 @@ class Food{
     return Food.all.find(element => element.id === id )
   }
 
-  // displayCalories(amount){
-  //   console.log(this)
-  //   this.createMacros(amount)
-  //   let base = this.calories/100
-  //   return Math.round(base * amount)
-  // }
-
   createMacros(amount){
     let macroObj = {"calories": 0, "protein": 0, "fat": 0, "carb": 0}
     for (let prop in macroObj){
