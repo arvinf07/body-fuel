@@ -47,9 +47,8 @@ class Meal {
 
     fetch(`http://127.0.0.1:3000/meals/${this.id}`, configObject)
     .then(resp => resp.json())
-    .then(({meal_foods}) => {
-      let lastMealFood = meal_foods[meal_foods.length - 1]
-      displayMealFood(this.createMealFood(lastMealFood), this.name)
+    .then( (meal_food) => {
+      displayMealFood(this.createMealFood(meal_food), this.name)
     })
     .catch( error => console.log(error))
   }
