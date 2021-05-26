@@ -16,11 +16,10 @@ class Meal {
   }
 
   createMealFood(mealFood){
-    //creates and returns js object from json data
+    //creates and returns new js object from json data
     let food = Food.findByID(mealFood.food_id)
-    let foodAmount = mealFood.amount         
-    let mealFoodID = mealFood.id
-    return this.addMealFood(food, foodAmount, mealFoodID)
+    let {amount, id} = mealFood
+    return this.addMealFood(food, amount, id)
   }
 
   static findByName(name){
@@ -47,7 +46,7 @@ class Meal {
 
     fetch(`http://127.0.0.1:3000/meals/${this.id}`, configObject)
     .then(resp => resp.json())
-    .then( (meal_food) => {
+    .then( meal_food => {
       displayMealFood(this.createMealFood(meal_food), this.name)
     })
     .catch( error => console.log(error))
