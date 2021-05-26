@@ -20,7 +20,6 @@ class Meal {
     let food = Food.findByID(mealFood.food_id)
     let foodAmount = mealFood.amount         
     let mealFoodID = mealFood.id
-    //is this return neccessary
     return this.addMealFood(food, foodAmount, mealFoodID)
   }
 

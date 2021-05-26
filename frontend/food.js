@@ -20,7 +20,6 @@ class Food{
     })
   }
 
-  // Move to meal class or food IDK
   static handleDelete(e){
     let mealFoodID = e.target.previousElementSibling.dataset.mealFoodId
     e.target.parentElement.remove()

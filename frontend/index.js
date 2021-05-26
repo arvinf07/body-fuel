@@ -24,7 +24,7 @@ function createCancelBtn(newFoodForm){
 function renderFoodForm(){
   closeOldForm() 
 
-  //hides button and creates form
+  //hides add button and creates form
   this.style.visibility = 'hidden'
   let newFoodForm = document.createElement('form')
   newFoodForm.innerHTML = `
@@ -41,7 +41,6 @@ function renderFoodForm(){
 }
 
 function closeOldForm(){
-  //Closes old food form
   let oldForm = document.querySelector('form')
   if (oldForm){
     oldForm.previousElementSibling.style.visibility = ''
@@ -73,13 +72,12 @@ function submitHandler(e){
   // what is neccessary here?
   e.preventDefault()
   let foodID = this.querySelector('select').value
-  let foodName = this.querySelector('select').querySelector(`option[value="${foodID}"]`).innerText
   let quantity = this.querySelector('input').value
   let newRow = document.createElement('tr')
-  newRow.classList += 'food-row'
-
   const currentRow = this.parentElement.parentElement
   let mealObj = Meal.findByName(getMealName(currentRow).id)
+
+  newRow.classList += 'food-row'
   mealObj.editMeal(foodID, quantity)
   this.previousElementSibling.style.visibility = ''
   this.remove()
