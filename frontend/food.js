@@ -7,15 +7,6 @@ class Food{
     Food.all.push(this)
   }
 
-  static createOptions(){
-    Food.all.forEach( food => {
-      let option = document.createElement('option')
-      option.value = food.id
-      option.innerText = food.name
-      document.getElementById('food').appendChild(option)
-    })
-  }
-
   static handleDelete(e){
     let mealFoodID = e.target.previousElementSibling.dataset.mealFoodId
     e.target.parentElement.remove()

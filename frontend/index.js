@@ -21,9 +21,17 @@ function createCancelBtn(newFoodForm){
   })
 }
 
+function createOptions(){
+  Food.all.forEach( food => {
+    let option = document.createElement('option')
+    option.value = food.id
+    option.innerText = food.name
+    document.getElementById('food').appendChild(option)
+  })
+}
+
 function renderFoodForm(){
   closeOldForm() 
-
   //hides add button and creates form
   this.style.visibility = 'hidden'
   let newFoodForm = document.createElement('form')
@@ -36,7 +44,7 @@ function renderFoodForm(){
   `
   createCancelBtn(newFoodForm)
   this.parentElement.appendChild(newFoodForm)
-  Food.createOptions()
+  createOptions()
   newFoodForm.addEventListener('submit', submitHandler)
 }
 
