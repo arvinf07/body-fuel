@@ -21,10 +21,18 @@ function createCancelBtn(newFoodForm){
   })
 }
 
+function createOptions(){
+  Food.all.forEach( food => {
+    let option = document.createElement('option')
+    option.value = food.id
+    option.innerText = food.name
+    document.getElementById('food').appendChild(option)
+  })
+}
+
 function renderFoodForm(){
   closeOldForm() 
-
-  //hides button and creates form
+  //hides add button and creates form
   this.style.visibility = 'hidden'
   let newFoodForm = document.createElement('form')
   newFoodForm.innerHTML = `
@@ -36,12 +44,11 @@ function renderFoodForm(){
   `
   createCancelBtn(newFoodForm)
   this.parentElement.appendChild(newFoodForm)
-  Food.createOptions()
+  createOptions()
   newFoodForm.addEventListener('submit', submitHandler)
 }
 
 function closeOldForm(){
-  //Closes old food form
   let oldForm = document.querySelector('form')
   if (oldForm){
     oldForm.previousElementSibling.style.visibility = ''
@@ -70,15 +77,15 @@ function getMealName(row) {
 }
 
 function submitHandler(e){
+  // what is neccessary here?
   e.preventDefault()
   let foodID = this.querySelector('select').value
-  let foodName = this.querySelector('select').querySelector(`option[value="${foodID}"]`).innerText
   let quantity = this.querySelector('input').value
   let newRow = document.createElement('tr')
-  newRow.classList += 'food-row'
-
   const currentRow = this.parentElement.parentElement
   let mealObj = Meal.findByName(getMealName(currentRow).id)
+
+  newRow.classList += 'food-row'
   mealObj.editMeal(foodID, quantity)
   this.previousElementSibling.style.visibility = ''
   this.remove()
@@ -92,29 +99,22 @@ function addDeleteBtn(newRow){
   newRow.appendChild(deleteBtn)
 }
 
-// FILTER SEARCH
-// const ul = document.getElementById('food-list')
-// function makeLis(){
-//   Food.all.forEach( food => {
-//     let li = document.createElement('li')
-//     li.innerText = food.name
-//     ul.appendChild(li)
-//   })
-// }
+function displayMeals(json){
+  json.forEach(meal => {
+    let mealObj = new Meal(meal)
+    if (mealObj.mealFoods.length != 0){
+      mealObj.mealFoods.forEach( meal_food => displayMealFood(meal_food, mealObj.name))
+    }
+  })
+}
 
-// function filter(){
-//   let input = document.querySelector('div.filter input')
-//   let filterValue = document.querySelector('div.filter input').value.toUpperCase()
-//   let lis = document.getElementsByTagName('li')
-//   for(let i = 0; i < lis.length; i++){
-//     let textValue = lis[i].innerText
-//     if (textValue.toUpperCase().indexOf(filterValue) > 1){
-//       lis[i].style.diplay = ''
-//     }else{
-//       lis[i].style.display = 'none'
-//     }
-  
-//   }
-    
+//display one mealFood at a time
+function displayMealFood(meal_food, mealName) {
+  let mealRow = document.getElementById(mealName.toLowerCase())
+  const newFoodTr = document.createElement('tr')
 
-// }
+  displayMacros(meal_food, newFoodTr)
+  mealRow.insertAdjacentElement('afterend', newFoodTr)    
+  newFoodTr.classList += 'food-row'    
+  addDeleteBtn(newFoodTr)
+}

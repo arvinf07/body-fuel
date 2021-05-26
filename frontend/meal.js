@@ -5,7 +5,7 @@ class Meal {
   constructor(json){
     const {name, id, meal_foods} = json
     this.mealFoods = []
-
+    // refactor 
     if (meal_foods.length != 0){
       meal_foods.forEach(mealFood => this.createMealFood(mealFood))
     }
@@ -16,31 +16,10 @@ class Meal {
   }
 
   createMealFood(mealFood){
-    //creates and returns js object from json data
+    //creates and returns new js object from json data
     let food = Food.findByID(mealFood.food_id)
-    let foodAmount = mealFood.amount         
-    let mealFoodID = mealFood.id
-    return this.addMealFood(food, foodAmount, mealFoodID)
-  }
-
-  static displayMeals(json){
-    json.forEach(meal => {
-      let mealObj = new Meal(meal)
-      if (mealObj.mealFoods.length != 0){
-        mealObj.mealFoods.forEach( meal_food => mealObj.displayMealFood(meal_food))
-      }
-    })
-  }
-
-  //display one mealFood at a time
-  displayMealFood(meal_food) {
-    let mealRow = document.getElementById(this.name.toLowerCase())
-    const newFoodTr = document.createElement('tr')
-
-    displayMacros(meal_food, newFoodTr)
-    mealRow.insertAdjacentElement('afterend', newFoodTr)    
-    newFoodTr.classList += 'food-row'    
-    addDeleteBtn(newFoodTr)
+    let {amount, id} = mealFood
+    return this.addMealFood(food, amount, id)
   }
 
   static findByName(name){
@@ -50,7 +29,7 @@ class Meal {
   static getMeals(){
     fetch(`http://127.0.0.1:3000/meals`)
     .then(resp => resp.json())
-    .then( json => Meal.displayMeals(json) )
+    .then( json => displayMeals(json) )
     .catch(error => console.log('this went wrong', error))
   }
 
@@ -67,9 +46,8 @@ class Meal {
 
     fetch(`http://127.0.0.1:3000/meals/${this.id}`, configObject)
     .then(resp => resp.json())
-    .then(({meal_foods}) => {
-      let lastMealFood = meal_foods[meal_foods.length - 1]
-      this.displayMealFood(this.createMealFood(lastMealFood))
+    .then( meal_food => {
+      displayMealFood(this.createMealFood(meal_food), this.name)
     })
     .catch( error => console.log(error))
   }

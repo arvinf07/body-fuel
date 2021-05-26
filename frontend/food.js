@@ -2,25 +2,11 @@ class Food{
   static all = []
 
   constructor({name, calories, fat, carb, protein, id}){
-    this.name = name
-    this.calories = calories
-    this.fat = fat
-    this.carb = carb
-    this.protein = protein
-    this.id = id
+    // Mass assign props
+    Object.assign(this, {name, calories, fat, carb, protein, id})
     Food.all.push(this)
   }
 
-  static createOptions(){
-    Food.all.forEach( food => {
-      let option = document.createElement('option')
-      option.value = food.id
-      option.innerText = food.name
-      document.getElementById('food').appendChild(option)
-    })
-  }
-
-  // Move to meal class or food IDK
   static handleDelete(e){
     let mealFoodID = e.target.previousElementSibling.dataset.mealFoodId
     e.target.parentElement.remove()
@@ -54,13 +40,6 @@ class Food{
   static findByID(id){
     return Food.all.find(element => element.id === id )
   }
-
-  // displayCalories(amount){
-  //   console.log(this)
-  //   this.createMacros(amount)
-  //   let base = this.calories/100
-  //   return Math.round(base * amount)
-  // }
 
   createMacros(amount){
     let macroObj = {"calories": 0, "protein": 0, "fat": 0, "carb": 0}
