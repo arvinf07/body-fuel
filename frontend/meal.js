@@ -33,7 +33,7 @@ class Meal {
     .catch(error => console.log('this went wrong', error))
   }
 
-  editMeal(foodId, foodAmount){
+  editMeal(foodId, foodAmount, currentRow){
     const body = {meal: {name: this.name, meal_foods_attributes: {food_id: foodId, amount: foodAmount}}}
     const configObject = {
       method: "PATCH",
@@ -43,11 +43,12 @@ class Meal {
       },
       body: JSON.stringify(body)
     }; 
+    console.log(currentRow)
 
     fetch(`http://127.0.0.1:3000/meals/${this.id}`, configObject)
     .then(resp => resp.json())
     .then( meal_food => {
-      displayMealFood(this.createMealFood(meal_food), this.name)
+      displayMealFood(this.createMealFood(meal_food), this.name, currentRow)
     })
     .catch( error => console.log(error))
   }

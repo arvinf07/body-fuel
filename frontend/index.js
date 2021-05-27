@@ -86,7 +86,7 @@ function submitHandler(e){
   let mealObj = Meal.findByName(getMealName(currentRow).id)
 
   newRow.classList += 'food-row'
-  mealObj.editMeal(foodID, quantity)
+  mealObj.editMeal(foodID, quantity, currentRow)
   this.previousElementSibling.style.visibility = ''
   this.remove()
 }
@@ -109,12 +109,13 @@ function displayMeals(json){
 }
 
 //display one mealFood at a time
-function displayMealFood(meal_food, mealName) {
-  let mealRow = document.getElementById(mealName.toLowerCase())
+function displayMealFood(meal_food, mealName, currentRow) {
+  // let mealRow = document.getElementById(mealName.toLowerCase())
   const newFoodTr = document.createElement('tr')
-
+  console.log(currentRow)
   displayMacros(meal_food, newFoodTr)
-  mealRow.insertAdjacentElement('afterend', newFoodTr)    
+  currentRow.insertAdjacentElement('beforebegin', newFoodTr)    
+  // mealRow.insertAdjacentElement('afterend', newFoodTr)    
   newFoodTr.classList += 'food-row'    
   addDeleteBtn(newFoodTr)
 }
