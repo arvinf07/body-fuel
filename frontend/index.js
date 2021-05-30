@@ -109,13 +109,12 @@ function displayMeals(json){
 }
 
 //display one mealFood at a time
-function displayMealFood(meal_food, mealName, currentRow) {
-  // let mealRow = document.getElementById(mealName.toLowerCase())
+function displayMealFood(meal_food, mealName) {
+  let currentRow = document.getElementById(`${mealName.toLowerCase()}-btn`)
   const newFoodTr = document.createElement('tr')
-  console.log(currentRow)
+  
   displayMacros(meal_food, newFoodTr)
   currentRow.insertAdjacentElement('beforebegin', newFoodTr)    
-  // mealRow.insertAdjacentElement('afterend', newFoodTr)    
   newFoodTr.classList += 'food-row'    
   addDeleteBtn(newFoodTr)
 }
