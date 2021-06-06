@@ -1,6 +1,7 @@
 class Meal < ApplicationRecord
   has_many :meal_foods
   has_many :foods, through: :meal_foods
+  belongs_to :user
 
   validates :name, presence: true
 
