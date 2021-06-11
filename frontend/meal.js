@@ -43,8 +43,6 @@ class Meal {
       },
       body: JSON.stringify(body)
     }; 
-    console.log(currentRow)
-
     fetch(`http://127.0.0.1:3000/meals/${this.id}`, configObject)
     .then(resp => resp.json())
     .then( meal_food => {
