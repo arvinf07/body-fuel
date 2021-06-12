@@ -8,6 +8,7 @@ class Food{
   }
 
   static handleDelete(e){
+    // should I make a mealFood.js ?
     let mealFoodID = e.target.previousElementSibling.dataset.mealFoodId
     e.target.parentElement.remove()
 
