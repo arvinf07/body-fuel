@@ -2,8 +2,7 @@
 class Meal {
   static all = []
 
-  constructor(json){
-    const {name, id, meal_foods} = json
+  constructor({name, id, meal_foods}){
     this.mealFoods = []
     // refactor 
     if (meal_foods.length != 0){
