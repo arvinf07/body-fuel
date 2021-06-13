@@ -10,7 +10,7 @@ Meal.getMeals()
 
 
 function newUserForm() {
-  
+
 }
 
 function loginForm() {
