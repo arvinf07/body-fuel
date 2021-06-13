@@ -15,6 +15,7 @@ class User {
     }; 
     fetch(`http://127.0.0.1:3000/users`, configObject)
     .then(resp => resp.json())
+    .then(userObj => User.new(userObj))
     .catch( error => console.log(error)) //can errors be sent through json
   }
 

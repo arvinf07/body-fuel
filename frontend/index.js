@@ -9,6 +9,14 @@ Food.getFoods()
 Meal.getMeals()
 
 
+function newUserForm() {
+  
+}
+
+function loginForm() {
+  
+}
+
 function createCancelBtn(newFoodForm){
   let cancelBtn = document.createElement('button')
   cancelBtn.textContent = 'Cancel'
