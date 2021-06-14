@@ -1,7 +1,9 @@
-const addButtons = document.querySelectorAll('button')
+const addButtons = document.querySelectorAll('button.btn')
 const foodTable = document.getElementById('food-table')
 const foodRows = document.getElementsByClassName('food-row')
+const createUserBtn = document.getElementById('new-user-form')
 
+createUserBtn.addEventListener('click', newUserForm)
 addButtons.forEach( e => e.addEventListener('click', renderFoodForm)) //this is the window because its in the root
 
 
@@ -10,7 +12,8 @@ Meal.getMeals()
 
 
 function newUserForm() {
-
+  document.getElementById('login-form').remove()
+  console.log('Im hit')
 }
 
 function loginForm() {
