@@ -1,6 +1,6 @@
 class User {
   constructor(props){
-    console.log(props)
+    
   }
 
   createUser(){

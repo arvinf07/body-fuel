@@ -4,6 +4,7 @@ const foodRows = document.getElementsByClassName('food-row')
 const createUserBtn = document.querySelector('form button')
 let loginForm =  document.getElementById('login-form')
 
+loginForm.addEventListener('submit', loginUser)
 createUserBtn.addEventListener('click', newUserForm)
 addButtons.forEach( e => e.addEventListener('click', renderFoodForm)) //this is the window because its in the root
 
@@ -36,6 +37,7 @@ function newUserForm() {
       <input type='submit' value='Create Account' />
     </form>
   `
+  newUserForm.addEventListener('submit', createNewUser)
 }
 
 function createCancelBtn(newFoodForm){
