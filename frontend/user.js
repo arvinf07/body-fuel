@@ -1,10 +1,15 @@
 class User {
   constructor(props){
+
+  }
+
+  static loginUser(){
     
   }
 
-  createUser(){
-    const body = {user: {username: this.username, password: this.password, height: this.height, weight: this.weight, age: this.gender}}
+  static createUser(){
+    const body = {user: {username, password, height, weight, gender}}
+    console.log(body)
     const configObject = {
       method: "POST",
       headers: {

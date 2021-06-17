@@ -4,7 +4,7 @@ const foodRows = document.getElementsByClassName('food-row')
 const createUserBtn = document.querySelector('form button')
 let loginForm =  document.getElementById('login-form')
 
-loginForm.addEventListener('submit', loginUser)
+loginForm.addEventListener('submit', User.loginUser)
 createUserBtn.addEventListener('click', newUserForm)
 addButtons.forEach( e => e.addEventListener('click', renderFoodForm)) //this is the window because its in the root
 
@@ -12,17 +12,18 @@ addButtons.forEach( e => e.addEventListener('click', renderFoodForm)) //this is 
 Food.getFoods()
 Meal.getMeals()
 
-
 function newUserForm() {
   loginForm.remove()
-  document.querySelector('h2').innerHTML += 
+  document.querySelector('h2').insertAdjacentHTML('afterend', 
+  // add labelFor and name to inputs
   `
     <form id="new-user-form">
       Create New User
       <br>
-      Username: <input type="text" required='true' />
+      <label for="username">Username:</label>
+      <input name='username' type="text" required='true' />
       <br>
-      Weight: <input type='number' required='true' />
+      Weight: <input name='weight' type='number' required='true' />
       <br>
       Height: <input type='number' required='true' />
       <br>
@@ -36,8 +37,8 @@ function newUserForm() {
       <br>
       <input type='submit' value='Create Account' />
     </form>
-  `
-  newUserForm.addEventListener('submit', createNewUser)
+  `)
+  newUserForm.addEventListener('submit', User.createUser)
 }
 
 function createCancelBtn(newFoodForm){
