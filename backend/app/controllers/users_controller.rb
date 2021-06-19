@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
+    byebug
     if user.save
       session[:user_id] = user.id
       render json: user.to_json
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
   
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :height, :weight)
+    params.require(:user).permit(:username, :age, :password, :password_confirmation, :gender, :height, :weight)
   end
 
 end

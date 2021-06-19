@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :meals
   resources :foods
   resources :meal_foods, only: [:destroy]
+  resources :users, only: [:create]
   post 'login', to: 'sessions#create'
 
 
