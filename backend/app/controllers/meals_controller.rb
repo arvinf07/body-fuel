@@ -24,7 +24,7 @@ class MealsController < ApplicationController
     switch_to_int
     params.require(:meal).permit(:name, meal_foods_attributes: [:food_id, :amount, :id])
   end
-
+  
   # Find out what is really wrong here???
   def switch_to_int
     params['meal']['meal_foods_attributes']['food_id'] = params['meal']['meal_foods_attributes']['food_id'].to_i
