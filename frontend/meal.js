@@ -4,13 +4,10 @@ class Meal {
 
   constructor({name, id, meal_foods}){
     this.mealFoods = []
-    // refactor 
+    Object.assign(this, name, id)
     if (meal_foods.length != 0){
       meal_foods.forEach(mealFood => this.createMealFood(mealFood))
     }
-
-    this.name = name
-    this.id = id
     Meal.all.push(this)
   }
 

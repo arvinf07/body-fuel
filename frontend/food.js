@@ -1,9 +1,8 @@
 class Food{
   static all = []
 
-  constructor({name, calories, fat, carb, protein, id}){
-    // Mass assign props
-    Object.assign(this, {name, calories, fat, carb, protein, id})
+  constructor(props){
+    Object.assign(this, props)
     Food.all.push(this)
   }
 
