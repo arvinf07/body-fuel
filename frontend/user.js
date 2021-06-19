@@ -9,8 +9,7 @@ class User {
 
   static createUser(event){
     event.preventDefault()
-    let {username, password, height, weight, gender} = getFormData(event)
-    const body = {user: {username, password, height, weight, gender}}
+    const body = {user: getFormData(event)}
     const configObject = {
       method: "POST",
       headers: {
@@ -19,10 +18,11 @@ class User {
       },
       body: JSON.stringify(body)
     }; 
-    // fetch(`http://127.0.0.1:3000/users`, configObject)
-    // .then(resp => resp.json())
+    fetch(`http://127.0.0.1:3000/users`, configObject)
+    .then(resp => resp.json())
+    .then(json => console.log(json))
     // .then(userObj => User.new(userObj))
-    // .catch( error => console.log(error)) //can errors be sent through json
+    .catch( error => console.log(error)) //can errors be sent through json
   }
 
 }

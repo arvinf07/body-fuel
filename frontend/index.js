@@ -17,7 +17,7 @@ function getFormData(event) {
   let dataObj = {}
   inputs.forEach(input => {
     if (input.type === 'radio' && input.checked || input.type != 'radio'){
-      dataObj[input.name] = input.value
+      dataObj[input.name] = input.value.trim()
     }
   })
   return dataObj
@@ -50,7 +50,7 @@ function newUserForm() {
       <br>
       Password: <input name="password" type='password' required='true' />
       <br>
-      Password Confirmation: <input name="password-confirmation" type='password' required='true' />
+      Password Confirmation: <input name="password_confirmation" type='password' required='true' />
       <br>
       <input type='submit' value='Create Account' />
     </form>
