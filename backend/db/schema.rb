@@ -10,42 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_06_153825) do
-
-  create_table "foods", force: :cascade do |t|
-    t.string "name"
-    t.float "calories"
-    t.float "fat"
-    t.float "carb"
-    t.float "protein"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+ActiveRecord::Schema.define(version: 20_210_606_153_825) do
+  create_table 'foods', force: :cascade do |t|
+    t.string 'name'
+    t.float 'calories'
+    t.float 'fat'
+    t.float 'carb'
+    t.float 'protein'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "meal_foods", force: :cascade do |t|
-    t.integer "meal_id"
-    t.integer "food_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "amount"
+  create_table 'meal_foods', force: :cascade do |t|
+    t.integer 'meal_id'
+    t.integer 'food_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'amount'
   end
 
-  create_table "meals", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
+  create_table 'meals', force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
-    t.integer "height"
-    t.integer "age"
-    t.integer "weight"
-    t.string "gender"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'users', force: :cascade do |t|
+    t.string 'username'
+    t.string 'password_digest'
+    t.integer 'height'
+    t.integer 'age'
+    t.integer 'weight'
+    t.string 'gender'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
-
 end
