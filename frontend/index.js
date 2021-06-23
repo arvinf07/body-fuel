@@ -1,13 +1,62 @@
-const addButtons = document.querySelectorAll('button')
+const addButtons = document.querySelectorAll('button.btn')
 const foodTable = document.getElementById('food-table')
 const foodRows = document.getElementsByClassName('food-row')
+const createUserBtn = document.querySelector('form button')
+let loginForm =  document.getElementById('login-form')
 
+loginForm.addEventListener('submit', User.loginUser)
+createUserBtn.addEventListener('click', newUserForm)
 addButtons.forEach( e => e.addEventListener('click', renderFoodForm)) //this is the window because its in the root
 
 
 Food.getFoods()
 Meal.getMeals()
 
+function getFormData(event) {
+  let inputs = Array.from(event.target.querySelectorAll('input'))
+  let dataObj = {}
+  inputs.forEach(input => {
+    if (input.type === 'radio' && input.checked || input.type != 'radio'){
+      dataObj[input.name] = input.value.trim()
+    }
+  })
+  return dataObj
+}
+
+function newUserForm() {
+  loginForm.remove()
+  document.querySelector('h2').insertAdjacentHTML('afterend', 
+  // add labelFor and name to inputs
+  `
+    <form id="new-user-form">
+      Create New User
+      <br>
+      <label for="username">Username:</label>
+      <input name='username' type="text" required='true' />
+      <br>
+      Weight: <input name='weight' type='number' required='true' />
+      <br>
+      Height: <input name='height' type='number' required='true' />
+      <br>
+      Age: <input name='age' type='number' required='true' />
+      <br>
+      Gender:
+      <input type="radio" id="male" name="gender" value="male">
+      <label for="male">Male</label>
+      <input type="radio" id="female" name="gender" value="female">
+      <label for="female">Female</label>
+      <input type="radio" id="other" name="gender" value="other">
+      <label for="other">Other</label>
+      <br>
+      Password: <input name="password" type='password' required='true' />
+      <br>
+      Password Confirmation: <input name="password_confirmation" type='password' required='true' />
+      <br>
+      <input type='submit' value='Create Account' />
+    </form>
+  `)
+  document.getElementById('new-user-form').addEventListener('submit', User.createUser)
+}
 
 function createCancelBtn(newFoodForm){
   let cancelBtn = document.createElement('button')
@@ -78,6 +127,7 @@ function getMealName(row) {
 
 function submitHandler(e){
   // what is neccessary here?
+  //try using getFormData here
   e.preventDefault()
   let foodID = this.querySelector('select').value
   let quantity = this.querySelector('input').value

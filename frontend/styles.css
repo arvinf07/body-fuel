@@ -48,6 +48,7 @@ b{
 
 }
 
+
 #logo{
   display: block;
   margin-left: auto;
@@ -60,13 +61,14 @@ b{
 
 .food-row{
   background-color: rgb(197, 197, 197);
-
 }
 
-
+/* after logging in add border
+and take of visibility attribute*/
 table, th, td {
-  border: 1px solid black;
+  /* border: 1px solid black;  */
   border-collapse: collapse;
+  visibility: hidden;
 }
 
 table {

@@ -17,9 +17,3 @@
 # Food.create(name: 'Peanut Butter', calories: 588, fat: 50, carb: 20, protein: 25)
 # Food.create(name: 'Tuna(Raw)', calories: 132, fat: 1.3, carb: 0, protein: 28)
 # Food.create(name: 'Oats(Raw)', calories: 389, fat: 6.9, carb: 66.3, protein: 17)
-
-
-
-
-
-

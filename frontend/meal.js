@@ -2,16 +2,12 @@
 class Meal {
   static all = []
 
-  constructor(json){
-    const {name, id, meal_foods} = json
+  constructor({name, id, meal_foods}){
     this.mealFoods = []
-    // refactor 
+    Object.assign(this, name, id)
     if (meal_foods.length != 0){
       meal_foods.forEach(mealFood => this.createMealFood(mealFood))
     }
-
-    this.name = name
-    this.id = id
     Meal.all.push(this)
   }
 
@@ -43,8 +39,6 @@ class Meal {
       },
       body: JSON.stringify(body)
     }; 
-    console.log(currentRow)
-
     fetch(`http://127.0.0.1:3000/meals/${this.id}`, configObject)
     .then(resp => resp.json())
     .then( meal_food => {

@@ -1,13 +1,13 @@
 class Food{
   static all = []
 
-  constructor({name, calories, fat, carb, protein, id}){
-    // Mass assign props
-    Object.assign(this, {name, calories, fat, carb, protein, id})
+  constructor(props){
+    Object.assign(this, props)
     Food.all.push(this)
   }
 
   static handleDelete(e){
+    // should I make a mealFood.js ?
     let mealFoodID = e.target.previousElementSibling.dataset.mealFoodId
     e.target.parentElement.remove()
 
