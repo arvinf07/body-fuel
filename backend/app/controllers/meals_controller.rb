@@ -9,10 +9,13 @@ class MealsController < ApplicationController
 
   def update
     meal = Meal.find_by(id: params[:id])
-    meal_food = meal.meal_foods.build(meal_params[:meal_foods_attributes])
-    meal.save
-    render json: meal_food.to_json({ except: %i[created_at updated_at] })
-    # render json: meal.to_json(include: {meal_foods: {except: [:created_at, :updated_at]}})
+    if current_user.id == meal.user_id && meal.save
+      meal_food = meal.meal_foods.build(meal_params[:meal_foods_attributes])
+      render json: meal_food.to_json({ except: %i[created_at updated_at] })
+    else
+      errors = user.errors.full_messages
+      render json: errors.to_json
+    end
   end
 
   private
