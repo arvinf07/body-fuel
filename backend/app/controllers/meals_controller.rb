@@ -8,12 +8,15 @@ class MealsController < ApplicationController
   def create; end
 
   def update
+    byebug
     meal = Meal.find_by(id: params[:id])
+    meal_food = meal.meal_foods.build(meal_params[:meal_foods_attributes])
     if current_user.id == meal.user_id && meal.save
-      meal_food = meal.meal_foods.build(meal_params[:meal_foods_attributes])
+      byebug
       render json: meal_food.to_json({ except: %i[created_at updated_at] })
     else
       errors = user.errors.full_messages
+      byebug
       render json: errors.to_json
     end
   end
