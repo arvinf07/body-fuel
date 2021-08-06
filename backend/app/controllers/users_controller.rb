@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
+      byebug
       session[:user_id] = user.id
       render json: user.to_json({except: [:password_digest] })
     else
