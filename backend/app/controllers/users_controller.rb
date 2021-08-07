@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     if user.save
       byebug
       session[:user_id] = user.id
-      render json: user.to_json({except: [:password_digest] })
+      render json: user.to_json({ include: {meals: {include: :meal_foods}}, except: [:password_digest] })
     else
       errors = user.errors.full_messages
       render json: errors.to_json
